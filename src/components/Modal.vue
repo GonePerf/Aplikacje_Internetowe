@@ -2,14 +2,14 @@
   <div class="backdrop" @click.self="$emit('closeModal')">
       <div class="modal-content">
           <h1>Dodawanie pracownika</h1>
-          <input type="text" placeholder="Imie">
-          <input type="text" placeholder="Nazwisko">
-          <input type="text" placeholder="Adres">
-          <input type="text" placeholder="Stanowisko">
-          <input type="number" placeholder="Pensja">
+          <input type="text" placeholder="Imie" v-model="firstName">
+          <input type="text" placeholder="Nazwisko" v-model="lastName">
+          <input type="text" placeholder="Adres" v-model="address">
+          <input type="text" placeholder="Stanowisko" v-model="workplace">
+          <input type="number" placeholder="Pensja" v-model="salary">
           <div>
             <button class="anuluj" @click="$emit('closeModal')">Anuluj</button>
-            <button class="dodaj">Dodaj</button>
+            <button class="dodaj" @click="addNewWorker">Dodaj</button>
           </div>
           
       </div>
@@ -22,7 +22,7 @@ import { useStore } from 'vuex'
 export default {
     props: ['title'],
     emits: ['closeModal'],
-    setup(){
+    setup() {
         const store = useStore()
         const firstName = ref('');
         const lastName = ref('');
@@ -30,7 +30,27 @@ export default {
         const workplace = ref('');
         const salary = ref('');
         const addNewWorker = () => {
-            store.commit('addNewWorker')
+            if(firstName.value && lastName.value && address.value && workplace.value && salary.value){
+                store.dispatch('addWorker', {
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    address: address.value,
+                    workplace: workplace.value,
+                    salary: salary.value
+                })
+                
+            }
+            else {
+                alert('Wypełnij wszystkie pola')
+            }
+        }
+        return {
+            firstName,
+            lastName,
+            address,
+            workplace,
+            salary,
+            addNewWorker
         }
     }
 }

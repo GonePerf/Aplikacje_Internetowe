@@ -1,30 +1,29 @@
 <template>
-<h1>Lista pracowników</h1>
   <div id="nav">
     <button @click="setRandomWorkers">
-      SET RANDOM WORKERS
+      GENERUJ 10 PRACOWNIKÓW
     </button>
-    <button @click="addNewWorker">ADD NEW WORKER</button>
+    <button @click="addNewWorker">DODAJ NOWEGO PRACOWNIKA</button>
   </div>
   <div class="searchbar">
     <select @change="changeBy" v-model="by">
-      <option value="firstName" selected>First Name</option>
-      <option value="lastName">Last Name</option>
-      <option value="address">Address</option>
-      <option value="workplace">Position</option>
+      <option value="firstName" selected>Imie</option>
+      <option value="lastName">Nazwisko</option>
+      <option value="address">Adres</option>
+      <option value="workplace">Stanowisko</option>
     </select>
     <input type="text" @input="setSearch" v-model="search" placeholder="Szukaj">
   </div>
   <router-view/>
-  <Modal @closeModal="closeModal" v-if="addingModal"/>
+  <AddWorker @closeModal="closeModal" v-if="addingModal"/>
 </template>
 <script>
 import { ref } from '@vue/reactivity'
 import { useStore } from 'vuex'
-import Modal from './components/Modal.vue'
+import AddWorker from './components/AddWorker.vue'
 export default {
   components: {
-    Modal
+    AddWorker
   },
   setup() {
     const store = useStore()

@@ -3,14 +3,14 @@
       <div class="modal-content">
           <h1>Edycja pracownika</h1>
           <p>ID: {{ worker.id }}</p>
-          <input type="text" placeholder="Imie" :value="worker.firstName">
-          <input type="text" placeholder="Nazwisko" :value="worker.lastName">
-          <input type="text" placeholder="Adres" :value="worker.address">
-          <input type="text" placeholder="Stanowisko" :value="worker.workplace">
-          <input type="number" placeholder="Pensja" :value="worker.salary">
+          <input type="text" :placeholder="worker.firstName" v-model="firstName">
+          <input type="text" :placeholder="worker.lastName" v-model="lastName">
+          <input type="text" :placeholder="worker.address" v-model="address">
+          <input type="text" :placeholder="worker.workplace" v-model="workplace">
+          <input type="number" :placeholder="worker.salary" v-model="salary">
           <div>
             <button class="anuluj" @click="$emit('closeModal')">Anuluj</button>
-            <button class="dodaj">Zapisz</button>
+            <button class="dodaj" @click="saveWorker(); $emit('closeModal')">Zapisz</button>
           </div>
       </div>
   </div>
@@ -22,7 +22,7 @@ import { useStore } from 'vuex'
 export default {
     props: ['worker'],
     emits: ['closeModal'],
-    setup(){
+    setup(props){
         const store = useStore()
         const firstName = ref('');
         const lastName = ref('');
@@ -30,7 +30,27 @@ export default {
         const workplace = ref('');
         const salary = ref('');
         const saveWorker = () => {
-            store.commit('addNewWorker')
+            if(firstName.value && lastName.value && address.value && workplace.value && salary.value){
+                let updatedWorker = {
+                    id: props.worker.id,
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    address: address.value,
+                    workplace: workplace.value,
+                    salary: salary.value
+                }
+                store.dispatch('updateWorker', updatedWorker)
+            } else {
+                alert('Wypełnij wszystkie pola')
+            }
+        }
+        return {
+            firstName,
+            lastName,
+            address,
+            workplace,
+            salary,
+            saveWorker
         }
     }
 }

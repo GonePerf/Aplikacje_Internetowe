@@ -9,7 +9,7 @@
           <input type="number" placeholder="Pensja" v-model="salary">
           <div>
             <button class="anuluj" @click="$emit('closeModal')">Anuluj</button>
-            <button class="dodaj" @click="addNewWorker">Dodaj</button>
+            <button class="dodaj" @click="addNewWorker(); $emit('closeModal')">Dodaj</button>
           </div>
           
       </div>
@@ -38,7 +38,6 @@ export default {
                     workplace: workplace.value,
                     salary: salary.value
                 })
-                
             }
             else {
                 alert('Wypełnij wszystkie pola')

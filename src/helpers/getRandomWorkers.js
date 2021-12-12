@@ -43,7 +43,7 @@ const getRandomWorkers = () => {
         let worker = {
             firstName: firstNames[Math.floor(Math.random() * firstNames.length)],
             lastName: lastNames[Math.floor(Math.random() * lastNames.length)],
-            salary: Math.floor(Math.random() * 100000),
+            salary: Math.floor(Math.random() * 60000),
             workplace: workplaces[Math.floor(Math.random() * workplaces.length)],
             address: cities[Math.floor(Math.random() * cities.length)] + ' ' + addresses[Math.floor(Math.random() * addresses.length)] + ' ' + Math.floor(Math.random() * 100),
             age: Math.floor(Math.random() * 30)+18

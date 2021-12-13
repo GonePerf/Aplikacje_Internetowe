@@ -3,14 +3,19 @@
       <div class="modal-content">
           <h1>Edycja pracownika</h1>
           <p>ID: {{ worker.id }}</p>
-          <input type="text" :placeholder="worker.firstName" v-model="firstName">
-          <input type="text" :placeholder="worker.lastName" v-model="lastName">
-          <input type="text" :placeholder="worker.address" v-model="address">
-          <input type="text" :placeholder="worker.workplace" v-model="workplace">
-          <input type="number" :placeholder="worker.salary" v-model="salary">
+          <input type="text" :placeholder="worker.firstName" v-model="firstName" maxlength="20">
+          <p class="error" v-if="firstNameError">Niepoprawidłowa ilosc znakow</p>
+          <input type="text" :placeholder="worker.lastName" v-model="lastName" maxlength="20">
+          <p class="error" v-if="lastNameError">Niepoprawidłowa ilosc znakow</p>
+          <input type="text" :placeholder="worker.address" v-model="address" maxlength="50">
+          <p class="error" v-if="addressError">Niepoprawidłowa ilosc znakow</p>
+          <input type="text" :placeholder="worker.workplace" v-model="workplace" maxlength="20">
+          <p class="error" v-if="workplaceError">Niepoprawidłowa ilosc znakow</p>
+          <input type="number" :placeholder="worker.salary" v-model="salary" maxlength="9">
+          <p class="error" v-if="salaryError">Niepoprawidłowa ilosc znakow</p>
           <div>
             <button class="anuluj" @click="$emit('closeModal')">Anuluj</button>
-            <button class="dodaj" @click="saveWorker(); $emit('closeModal')">Zapisz</button>
+            <button class="dodaj" @click="saveWorker">Zapisz</button>
           </div>
       </div>
   </div>
@@ -22,24 +27,67 @@ import { useStore } from 'vuex'
 export default {
     props: ['worker'],
     emits: ['closeModal'],
-    setup(props){
+    setup(props, { emit }) {
         const store = useStore()
         const firstName = ref('');
+        const firstNameError = ref(false);
         const lastName = ref('');
+        const lastNameError = ref(false);
         const address = ref('');
+        const addressError = ref(false);
         const workplace = ref('');
+        const workplaceError = ref(false);
         const salary = ref('');
+        const salaryError = ref(false);
         const saveWorker = () => {
             if(firstName.value && lastName.value && address.value && workplace.value && salary.value){
-                let updatedWorker = {
-                    id: props.worker.id,
-                    firstName: firstName.value,
-                    lastName: lastName.value,
-                    address: address.value,
-                    workplace: workplace.value,
-                    salary: salary.value
+                
+                if(firstName.value.length < 3 || firstName.value.length > 20){
+                    firstNameError.value = true;
                 }
-                store.dispatch('updateWorker', updatedWorker)
+                else if(lastName.value.length < 3 || lastName.value.length > 20){
+                    firstNameError.value = false;
+                    lastNameError.value = true;
+                }
+                else if(address.value.length < 8 || address.value.length > 50){
+                    firstNameError.value = false;
+                    lastNameError.value = false;
+                    addressError.value = true;
+                }
+                else if(workplace.value.length < 3 || workplace.value.length > 20){
+                    firstNameError.value = false;
+                    lastNameError.value = false;
+                    addressError.value = false;
+                    workplaceError.value = true;
+                }
+                else if(salary.value.length < 4) {
+                    firstNameError.value = false;
+                    lastNameError.value = false;
+                    addressError.value = false;
+                    workplaceError.value = false;
+                    salaryError.value = true;
+                }
+                else {
+                    firstNameError.value = false;
+                    lastNameError.value = false;
+                    addressError.value = false;
+                    workplaceError.value = false;
+                    salaryError.value = false;
+                }
+
+                
+                if(firstNameError.value === false && lastNameError.value === false && addressError.value === false && workplaceError.value === false && salaryError.value === false){
+                    let updatedWorker = {
+                        id: props.worker.id,
+                        firstName: firstName.value,
+                        lastName: lastName.value,
+                        address: address.value,
+                        workplace: workplace.value,
+                        salary: salary.value
+                    }
+                    store.dispatch('updateWorker', updatedWorker)
+                    emit('closeModal')
+                }
             } else {
                 alert('Wypełnij wszystkie pola')
             }
@@ -50,60 +98,13 @@ export default {
             address,
             workplace,
             salary,
-            saveWorker
+            saveWorker,
+            firstNameError,
+            lastNameError,
+            addressError,
+            workplaceError,
+            salaryError
         }
     }
 }
 </script>
-
-<style scoped>
-    .backdrop {
-        top: 0;
-        position: fixed;
-        background: rgba(0, 0, 0, 0.5);
-        width: 100%;
-        height: 100%;
-    }
-    .modal-content {
-        width: 600px;
-        z-index: 1;
-        padding: 20px;
-        margin: 100px auto;
-        background: url('../assets/bckg.jpg');
-        background-size: cover;
-        border-radius: 10px;
-    }
-    .modal-content > input {
-        width: 60%;
-        margin: 10px auto;
-        border-radius: 12px;
-        padding: 5px;
-    }
-    .modal-content > button {
-        width: 30%;
-        margin: 10px auto;
-        background: #42b983;
-        font-weight: bold;
-        color: #fff;
-        border-radius: 12px;
-        padding: 5px;
-    }
-    .dodaj {
-        background: #42b983;
-    }
-    .anuluj { 
-        background: #f44336;
-    }
-    .modal-content > div {
-        display: flex;
-    }
-    .modal-content > div > button {
-        width: 30%;
-        margin: 10px auto;
-        
-        font-weight: bold;
-        color: #fff;
-        border-radius: 12px;
-        padding: 5px;
-    }
-</style>

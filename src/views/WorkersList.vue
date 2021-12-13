@@ -106,28 +106,3 @@ export default {
   
   </div>
 </template>
-<style scoped>
-td > button {
-  background: transparent;
-  border: none;
-}
-td > button:hover {
-  color: #7b7b7b;
-}
-table.table{
-  padding: 10px;
-}
-tr:hover {
-  background: #fafafa;
-  cursor: pointer;
-}
-thead {
-  background: #fafafa;
-}
-.delete:hover {
-  color: red;
-}
-.edit:hover {
-  color: #7b7b7b;
-}
-</style>

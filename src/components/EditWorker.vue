@@ -11,7 +11,7 @@
           <p class="error" v-if="addressError">Niepoprawidłowa ilosc znakow</p>
           <input type="text" :placeholder="worker.workplace" v-model="workplace" maxlength="20">
           <p class="error" v-if="workplaceError">Niepoprawidłowa ilosc znakow</p>
-          <input type="number" :placeholder="worker.salary" v-model="salary" maxlength="9">
+          <input type="number" :placeholder="worker.salary" v-model="salary">
           <p class="error" v-if="salaryError">Niepoprawidłowa ilosc znakow</p>
           <div>
             <button class="anuluj" @click="$emit('closeModal')">Anuluj</button>
@@ -60,7 +60,7 @@ export default {
                     addressError.value = false;
                     workplaceError.value = true;
                 }
-                else if(salary.value.length < 4) {
+                else if(salary.value.length < 4 || salary.value.length > 9) {
                     firstNameError.value = false;
                     lastNameError.value = false;
                     addressError.value = false;

@@ -59,7 +59,7 @@ export default {
                     addressError.value = false;
                     workplaceError.value = true;
                 }
-                else if(salary.value.length < 4) {
+                else if(salary.value.length < 4 || salary.value.length > 9) {
                     firstNameError.value = false;
                     lastNameError.value = false;
                     addressError.value = false;

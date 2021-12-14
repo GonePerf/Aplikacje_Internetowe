@@ -1,3 +1,6 @@
+* {
+  transition: .05s;
+}
 .error {
     color: red !important;
 }
@@ -30,12 +33,6 @@
         color: #f2f2f2f2;
         background: #1A1D22;
         box-shadow: 1px 1px 2px rgba(42, 46, 54, 0.3), -1px -1px 2px rgba(10, 12, 14, 0.5), inset -1px 1px 2px rgba(10, 12, 14, 0.2), inset 1px -1px 2px rgba(10, 12, 14, 0.2), inset -1px -1px 2px rgba(42, 46, 54, 0.9), inset 1px 1px 3px rgba(10, 12, 14, 0.9);
-    }
-    .dodaj {
-        background: #42b983;
-    }
-    .anuluj { 
-        background: #f44336;
     }
     .modal-content > div {
         display: flex;
@@ -186,19 +183,17 @@
   margin: 10px;
   background: #1A1D22;
   box-shadow: -1px 1px 2px rgba(10, 12, 14, 0.2), 1px -1px 2px rgba(10, 12, 14, 0.2), -1px -1px 2px rgba(42, 46, 54, 0.9), 1px 1px 3px rgba(10, 12, 14, 0.9), inset 1px 1px 2px rgba(42, 46, 54, 0.3), inset -1px -1px 2px rgba(10, 12, 14, 0.5);
-  width: 15%;
-  height: 60px;
+  width: 18%;
+  height: 50px;
 }
 
 #nav button:hover {
-  
-  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 body{
 background: #282c33;
   }
 .searchbar {
-  background: white;
   position: fixed;
   display: flex;
   top: 10px;
@@ -225,11 +220,14 @@ background: #282c33;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   padding: 4px;
+  color: white;
   background: #21272C;
   box-shadow: -1px 1px 2px rgba(13, 16, 18, 0.2), 1px -1px 2px rgba(13, 16, 18, 0.2), -1px -1px 2px rgba(53, 62, 70, 0.9), 1px 1px 3px rgba(13, 16, 18, 0.9), inset 1px 1px 2px rgba(53, 62, 70, 0.3), inset -1px -1px 2px rgba(13, 16, 18, 0.5);
   border: none;
+  outline: none;
   cursor: pointer;
 }
+
 
 .searchbar > input {
   height: 30px;
@@ -237,6 +235,7 @@ background: #282c33;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   text-align: center;
+  color: white;
   padding: 2px 10px;
   background: #21272C;
   box-shadow: -1px 1px 2px rgba(13, 16, 18, 0.2), 1px -1px 2px rgba(13, 16, 18, 0.2), -1px -1px 2px rgba(53, 62, 70, 0.9), 1px 1px 3px rgba(13, 16, 18, 0.9), inset 1px 1px 2px rgba(53, 62, 70, 0.3), inset -1px -1px 2px rgba(13, 16, 18, 0.5);
@@ -262,11 +261,6 @@ thead tr th{
   
 
   }
-  thead tr:hover {
-  background: #21272C;
-  color: #21272C;
-  font-weight: 900;
-  }
   tbody tr:hover{
   color: rgb(12, 12, 12);
   
@@ -283,7 +277,7 @@ table.table{
   padding: 10px;
 }
 tr:hover {
-  background: #fafafa;
+  background: #aaa;
   cursor: pointer;
 }
 thead {
@@ -294,4 +288,7 @@ thead {
 }
 .edit:hover {
   color: #7b7b7b;
+}
+.edit-icon:hover {
+  color: #0084ff;
 }

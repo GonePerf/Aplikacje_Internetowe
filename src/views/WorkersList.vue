@@ -87,7 +87,7 @@ export default {
         <td><b>{{ worker.salary }}</b> zł</td>
         <td>
           <button @click="editWorker(worker)">
-            <span class="material-icons">edit</span>
+            <span class="material-icons edit-icon">edit</span>
           </button>
           <button @click="deleteWorker(worker)">
             <span class="material-icons delete">delete</span>
